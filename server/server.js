@@ -1,18 +1,18 @@
 import dotenv from "dotenv"; 
-// ⚠️ MUKKIYAM: Dotenv.config eppovum top-la irukanum
 dotenv.config(); 
 
 import express from "express";
 import colors from "colors";
 import morgan from "morgan";
 import cors from "cors";
-import connectDB from "./config/db.js"; // Path + .js Extension
+import connectDB from "./config/db.js";
 
 // Route Imports
 import authRoutes from "./routes/authRoute.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoute.js";
-import paymentRoutes from "./routes/paymentRoute.js";
+// ⚠️ MUKKIYAM: Unga file name 'paymentRoute.js' illana 'paymentRoutes.js' nu check panni adhe inga kudunga
+import paymentRoutes from "./routes/paymentRoutes.js"; 
 
 // Database Connection
 connectDB();
@@ -21,14 +21,14 @@ const app = express();
 
 // --- 🛠️ MIDDLEWARES ---
 app.use(cors());
-app.use(express.json()); // Frontend data-ah read panna idhu mukkiyam
+app.use(express.json()); 
 app.use(morgan("dev"));
 
 // --- 🛣️ API ROUTES ---
 app.use("/api/v1/auth", authRoutes);
 app.use("/api/v1/category", categoryRoutes);
 app.use("/api/v1/product", productRoutes);
-app.use("/api/v1/payment", paymentRoutes);
+app.use("/api/v1/payment", paymentRoutes); // 👈 Ippo path '/api/v1/payment/checkout' correct-ah work aagum
 
 // Base API
 app.get("/", (req, res) => {

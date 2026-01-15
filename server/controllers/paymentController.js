@@ -2,13 +2,14 @@ import Razorpay from "razorpay";
 import crypto from "crypto";
 import dotenv from "dotenv";
 import orderModel from "../models/orderModel.js";
-import { sendOrderEmail } from "../helpers/emailHelper.js"; // 🔥 Email helper import
+import { sendOrderEmail } from "../helpers/emailHelper.js";
 
 dotenv.config();
 
+// ✅ Instance configuration with proper variable names
 const instance = new Razorpay({
-  key_id: process.env.RAZORPAY_API_KEY,
-  key_secret: process.env.RAZORPAY_APT_SECRET,
+  key_id: process.env.RAZORPAY_API_KEY, 
+  key_secret: process.env.RAZORPAY_API_SECRET, // 'APT' nu irundhadhai 'API' nu mathirukaen
 });
 
 // Phase 1: Create Order
@@ -28,7 +29,7 @@ export const checkoutController = async (req, res) => {
 
     const order = await instance.orders.create(options);
     
-    // Sync logic: Key ID-ah frontend-ku anupuroom to avoid 401 error
+    // key anupura idathulayum variable name check pannikonga
     res.status(200).json({ 
       success: true, 
       order, 
@@ -55,14 +56,14 @@ export const paymentVerificationController = async (req, res) => {
     // 1. Signature Verification
     const body = razorpay_order_id + "|" + razorpay_payment_id;
     const expectedSignature = crypto
-      .createHmac("sha256", process.env.RAZORPAY_APT_SECRET)
+      .createHmac("sha256", process.env.RAZORPAY_API_SECRET) // Sync panna name
       .update(body.toString())
       .digest("hex");
 
     const isAuthentic = expectedSignature === razorpay_signature;
 
     if (isAuthentic) {
-      // 2. Calculation for Email (Total amount in INR)
+      // 2. Calculation for Email
       const totalAmount = cart.reduce((acc, item) => acc + (item.price || 0), 0);
 
       // 3. Save Order to Database
@@ -72,7 +73,7 @@ export const paymentVerificationController = async (req, res) => {
             razorpay_order_id, 
             razorpay_payment_id, 
             success: true,
-            amount: totalAmount // Storing in INR for ledger
+            amount: totalAmount 
         },
         buyer: req.user._id,
         shippedTo: address,
@@ -81,9 +82,8 @@ export const paymentVerificationController = async (req, res) => {
       
       await order.save();
 
-      // 🔥 Phase 3: DISPATCH LUXURY EMAILS
+      // Phase 3: Email Dispatch
       try {
-          // Send to User & Admin via Helper
           await sendOrderEmail(
               req.user.email, 
               order._id.toString(), 

@@ -31,7 +31,7 @@ const Profile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.put("http://localhost:5000/api/v1/auth/profile", {
+      const { data } = await axios.put("https://house-of-rahaa-store.onrender.com/api/v1/auth/profile", {
         name,
         password,
         phone,

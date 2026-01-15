@@ -30,7 +30,7 @@ const Auth = () => {
                 ? { email: email.toLowerCase(), password } 
                 : { name, email: email.toLowerCase(), password, phone, address };
 
-            const { data } = await axios.post(`http://localhost:5000${endpoint}`, payload);
+            const { data } = await axios.post(`https://house-of-rahaa-store.onrender.com${endpoint}`, payload);
 
             if (data?.success) {
                 toast.success(data.message, { id: toastId });

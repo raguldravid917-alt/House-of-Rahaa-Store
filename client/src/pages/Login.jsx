@@ -21,7 +21,7 @@ const Login = () => {
     playSound("click"); // கிளிக் சத்தம்
     
     try {
-      const res = await axios.post("http://localhost:5000/api/v1/auth/login", {
+      const res = await axios.post("https://house-of-rahaa-store.onrender.com/api/v1/auth/login", {
         email,
         password,
       });

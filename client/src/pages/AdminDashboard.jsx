@@ -56,14 +56,14 @@ const AdminDashboard = () => {
   // --- 🏷️ FETCH DATA ---
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/v1/category/get-category");
+      const { data } = await axios.get("https://house-of-rahaa-store.onrender.com/api/v1/category/get-category");
       if (data?.success) setCategories(data.category);
     } catch (err) { console.log(err); }
   };
 
   const getAllProducts = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/v1/product/get-product");
+      const { data } = await axios.get("https://house-of-rahaa-store.onrender.com/api/v1/product/get-product");
       if (data?.success) setProducts(data.products);
     } catch (err) { console.log(err); }
   };
@@ -71,7 +71,7 @@ const AdminDashboard = () => {
   const getAllOrders = async () => {
     if(!auth?.token) return;
     try {
-      const { data } = await axios.get("http://localhost:5000/api/v1/auth/all-orders", config);
+      const { data } = await axios.get("https://house-of-rahaa-store.onrender.com/api/v1/auth/all-orders", config);
       setOrders(data);
     } catch (err) { console.log(err); }
   };
@@ -106,7 +106,7 @@ const AdminDashboard = () => {
     try {
       const originalProducts = [...products];
       setProducts(products.map((p) => p._id === pid ? { ...p, stock: updatedValue, quantity: updatedValue } : p));
-      const { data } = await axios.put(`http://localhost:5000/api/v1/product/update-product/${pid}`, {
+      const { data } = await axios.put(`https://house-of-rahaa-store.onrender.com/api/v1/product/update-product/${pid}`, {
         stock: updatedValue,
         quantity: updatedValue 
       }, config);
@@ -126,7 +126,7 @@ const AdminDashboard = () => {
   const handleCreateCategory = async (e) => {
     e.preventDefault();
     try {
-      const { data } = await axios.post("http://localhost:5000/api/v1/category/create-category", { name: newCategoryName }, config);
+      const { data } = await axios.post("https://house-of-rahaa-store.onrender.com/api/v1/category/create-category", { name: newCategoryName }, config);
       if (data?.success) {
         toast.success(`Category Indexed: ${newCategoryName}`);
         setNewCategoryName("");
@@ -138,7 +138,7 @@ const AdminDashboard = () => {
   const handleDeleteCategory = async (id) => {
     if (!window.confirm("Remove this category from the archive?")) return;
     try {
-      const { data } = await axios.delete(`http://localhost:5000/api/v1/category/delete-category/${id}`, config);
+      const { data } = await axios.delete(`https://house-of-rahaa-store.onrender.com/api/v1/category/delete-category/${id}`, config);
       if (data.success) { toast.success("Category Removed"); getAllCategories(); }
     } catch (error) { toast.error("Operation Denied"); }
   };
@@ -146,14 +146,14 @@ const AdminDashboard = () => {
   const handleDelete = async (pid) => {
     if (!window.confirm("Permanently erase this artifact?")) return;
     try {
-      const { data } = await axios.delete(`http://localhost:5000/api/v1/product/delete-product/${pid}`, config);
+      const { data } = await axios.delete(`https://house-of-rahaa-store.onrender.com/api/v1/product/delete-product/${pid}`, config);
       if (data.success) { toast.success("Artifact Erased"); getAllProducts(); }
     } catch (err) { toast.error("Erasure Failed"); }
   };
 
   const handleStatus = async (orderId, value) => {
     try {
-      await axios.put(`http://localhost:5000/api/v1/auth/order-status/${orderId}`, { status: value }, config);
+      await axios.put(`https://house-of-rahaa-store.onrender.com/api/v1/auth/order-status/${orderId}`, { status: value }, config);
       toast.success("Protocol Updated");
       getAllOrders();
     } catch (err) { toast.error("Log Update Failed"); }
@@ -187,8 +187,8 @@ const AdminDashboard = () => {
     setLoading(true);
     try {
       const url = isEditing 
-        ? `http://localhost:5000/api/v1/product/update-product/${editId}` 
-        : "http://localhost:5000/api/v1/product/add-product";
+        ? `https://house-of-rahaa-store.onrender.com/api/v1/product/update-product/${editId}` 
+        : "https://house-of-rahaa-store.onrender.com/api/v1/product/add-product";
       
       const res = await axios[isEditing ? "put" : "post"](url, { ...form, image: uploadedImageUrl }, config);
 

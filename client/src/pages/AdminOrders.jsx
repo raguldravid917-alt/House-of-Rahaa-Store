@@ -22,7 +22,7 @@ const AdminOrders = () => {
   // --- GET ALL ORDERS ---
   const getOrders = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/v1/auth/all-orders", {
+      const { data } = await axios.get("https://house-of-rahaa-store.onrender.com/api/v1/auth/all-orders", {
         headers: { Authorization: auth?.token }
       });
       setOrders(data);
@@ -41,7 +41,7 @@ const AdminOrders = () => {
     try {
       toast.loading("Updating Protocol...", { id: "status" });
       await axios.put(
-        `http://localhost:5000/api/v1/auth/order-status/${orderId}`,
+        `https://house-of-rahaa-store.onrender.com/api/v1/auth/order-status/${orderId}`,
         { status: value },
         { headers: { Authorization: auth?.token } }
       );

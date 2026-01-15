@@ -23,7 +23,7 @@ const Register = () => {
 
     try {
       // ✅ Sending all 6 required fields
-      const res = await axios.post("http://localhost:5000/api/v1/auth/register", {
+      const res = await axios.post("https://house-of-rahaa-store.onrender.com/api/v1/auth/register", {
         name,
         email,
         password,

@@ -25,7 +25,7 @@ const Orders = () => {
   const getOrders = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get("http://localhost:5000/api/v1/auth/orders", {
+      const { data } = await axios.get("https://house-of-rahaa-store.onrender.com/api/v1/auth/orders", {
         headers: { Authorization: auth?.token }
       });
       setOrders(data);
@@ -156,7 +156,7 @@ const Orders = () => {
                                             <div key={idx} className="flex gap-4 md:gap-6 items-center bg-white/[0.02] p-3 md:p-4 rounded-[20px] md:rounded-[30px] border border-white/5">
                                                 <div className="w-16 h-20 md:w-20 md:h-28 rounded-xl md:rounded-2xl overflow-hidden border border-white/10 bg-black">
                                                     <img 
-                                                       src={p.image ? transformImage(p.image) : `http://localhost:5000/api/v1/product/product-photo/${p._id}`} 
+                                                       src={p.image ? transformImage(p.image) : `https://house-of-rahaa-store.onrender.com/api/v1/product/product-photo/${p._id}`} 
                                                        className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700" alt={p.name} 
                                                     />
                                                 </div>

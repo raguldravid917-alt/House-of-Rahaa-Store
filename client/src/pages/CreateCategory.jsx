@@ -19,7 +19,7 @@ const CreateCategory = () => {
   // 1. GET ALL CATEGORIES
   const getAllCategory = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/v1/category/get-category");
+      const { data } = await axios.get("https://house-of-rahaa-store.onrender.com/api/v1/category/get-category");
       if (data?.success) {
         setCategories(data?.category);
       }
@@ -41,7 +41,7 @@ const CreateCategory = () => {
     try {
       toast.loading("Indexing New Category...", { id: "create" });
       const { data } = await axios.post(
-        "http://localhost:5000/api/v1/category/create-category",
+        "https://house-of-rahaa-store.onrender.com/api/v1/category/create-category",
         { name },
         { headers: { Authorization: auth?.token } }
       );
@@ -62,7 +62,7 @@ const CreateCategory = () => {
     e.preventDefault();
     try {
       const { data } = await axios.put(
-        `http://localhost:5000/api/v1/category/update-category/${selected._id}`,
+        `https://house-of-rahaa-store.onrender.com/api/v1/category/update-category/${selected._id}`,
         { name: updatedName },
         { headers: { Authorization: auth?.token } }
       );
@@ -85,7 +85,7 @@ const CreateCategory = () => {
     if (!window.confirm("Permanently erase this taxonomy from the vault?")) return;
     try {
       const { data } = await axios.delete(
-        `http://localhost:5000/api/v1/category/delete-category/${id}`,
+        `https://house-of-rahaa-store.onrender.com/api/v1/category/delete-category/${id}`,
         { headers: { Authorization: auth?.token } }
       );
       if (data.success) {

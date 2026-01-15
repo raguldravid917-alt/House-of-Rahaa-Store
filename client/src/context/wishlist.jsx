@@ -8,7 +8,7 @@ const WishlistContext = createContext();
 const WishlistProvider = ({ children }) => {
   const [wishlist, setWishlist] = useState([]);
   const [auth] = useAuth();
-  const API_URL = "http://localhost:5000"; 
+  const API_URL = "https://house-of-rahaa-store.onrender.com"; 
 
   // 1. 🔄 LOAD WISHLIST (Initial Load or Login)
   useEffect(() => {

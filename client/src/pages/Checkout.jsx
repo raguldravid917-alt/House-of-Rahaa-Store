@@ -81,7 +81,7 @@ const Checkout = () => {
         console.log("🛠️ Establishing Secure Vault Link...");
         
         // 1. Backend-la Order ID create panroom
-        const { data } = await axios.post("http://localhost:5000/api/v1/payment/checkout", {
+        const { data } = await axios.post("https://house-of-rahaa-store.onrender.com/api/v1/payment/checkout", {
             amount: finalTotal 
         }, { headers: { Authorization: auth?.token } });
 
@@ -111,7 +111,7 @@ const Checkout = () => {
                     
                     // 3. Signature Verification request to server
                     // Backend-la razorpay_signature verify aaga intha key names romba mukkiyam
-                    const verifyRes = await axios.post("http://localhost:5000/api/v1/payment/paymentverification", {
+                    const verifyRes = await axios.post("https://house-of-rahaa-store.onrender.com/api/v1/payment/paymentverification", {
                         razorpay_order_id: response.razorpay_order_id,
                         razorpay_payment_id: response.razorpay_payment_id,
                         razorpay_signature: response.razorpay_signature,

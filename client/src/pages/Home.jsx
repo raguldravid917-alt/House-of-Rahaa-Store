@@ -24,7 +24,7 @@ const Home = () => {
   // --- 🏛️ ARCHIVE DATA PROTOCOLS ---
   const getAllCategories = async () => {
     try {
-      const { data } = await axios.get("http://localhost:5000/api/v1/category/get-category");
+      const { data } = await axios.get("https://house-of-rahaa-store.onrender.com/api/v1/category/get-category");
       if (data?.success) setCategories(data.category);
     } catch (err) { console.error("Archive Fetch Error", err); }
   };
@@ -32,7 +32,7 @@ const Home = () => {
   const getProducts = async () => {
     setLoading(true);
     try {
-      const { data } = await axios.get("http://localhost:5000/api/v1/product/get-product");
+      const { data } = await axios.get("https://house-of-rahaa-store.onrender.com/api/v1/product/get-product");
       if (data?.success) setProducts(data.products);
     } catch (error) { toast.error("Vault Connection Severed"); }
     finally { setLoading(false); }

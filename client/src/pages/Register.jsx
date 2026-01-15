@@ -17,35 +17,26 @@ const Register = () => {
   const { playSound } = useSound();
 
   const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    playSound("click");
+  e.preventDefault();
+  try {
+    const res = await axios.post("https://house-of-rahaa-store.onrender.com/api/v1/auth/register", {
+      name,
+      email,
+      password,
+      phone,
+      address,
+    });
 
-    try {
-      // ✅ Sending all 6 required fields
-      const res = await axios.post("https://house-of-rahaa-store.onrender.com/api/v1/auth/register", {
-        name,
-        email,
-        password,
-        phone,
-        address,
-        answer,
-      });
-
-      if (res && res.data.success) {
-        playSound("success");
-        toast.success(res.data.message);
-        setTimeout(() => navigate("/login"), 1000);
-      } else {
-        toast.error(res.data.message);
-        setLoading(false);
-      }
-    } catch (error) {
-      console.log(error);
-      toast.error("Registration Failed");
-      setLoading(false);
+    if (res && res.data.success) {
+      toast.success(res.data.message);
+      navigate("/login");
+    } else {
+      toast.error(res.data.message);
     }
-  };
+  } catch (error) {
+    toast.error(error.response?.data?.message || "Registration Failed");
+  }
+};
 
   return (
     <div className="min-h-screen bg-[#020202] text-white font-sans selection:bg-[#d4a373] flex items-center justify-center relative overflow-hidden py-20">

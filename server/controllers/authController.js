@@ -7,22 +7,41 @@ import JWT from "jsonwebtoken";
 // 1. REGISTER CONTROLLER
 export const registerController = async (req, res) => {
   try {
-    const { name, email, password, phone, address, answer } = req.body;
-    if (!name || !email || !password || !phone || !address || !answer) {
+    const { name, email, password, phone, address } = req.body;
+
+    // "Answer" illama validation
+    if (!name || !email || !password || !phone || !address) {
       return res.status(400).send({ success: false, message: "All fields are required" });
     }
+
     const existingUser = await userModel.findOne({ email });
     if (existingUser) {
       return res.status(200).send({ success: false, message: "Already Registered, please login" });
     }
+
     const hashedPassword = await hashPassword(password);
-    const user = await new userModel({ name, email, phone, address, answer, password: hashedPassword }).save();
-    res.status(201).send({ success: true, message: "User Registered Successfully", user });
+    // User-ah save pannum podhu 'answer' thookkiyaachu
+    const user = await new userModel({
+      name,
+      email,
+      phone,
+      address,
+      password: hashedPassword,
+    }).save();
+
+    res.status(201).send({
+      success: true,
+      message: "User Registered Successfully",
+      user,
+    });
   } catch (error) {
-    res.status(500).send({ success: false, message: "Error in Registration", error: error.message });
+    res.status(500).send({
+      success: false,
+      message: "Error in Registration",
+      error: error.message,
+    });
   }
 };
-
 // 2. LOGIN CONTROLLER
 export const loginController = async (req, res) => {
   try {

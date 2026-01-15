@@ -7,14 +7,11 @@ const userSchema = new mongoose.Schema(
     password: { type: String, required: true },
     phone: { type: String, required: true },
     address: { type: String, required: true },
-    answer: { type: String }, // Optional
     role: { type: Number, default: 0 },
-    
-    // 👇 INDHA LINE ROMBA MUKKIYAM! (Idhu iruka nu paarunga)
     wishlist: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Products", // "Products" nu irukanum (Unga ProductModel export name)
+        type: mongoose.ObjectId,
+        ref: "Products",
       },
     ],
   },

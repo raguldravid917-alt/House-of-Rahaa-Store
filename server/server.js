@@ -12,7 +12,7 @@ import authRoutes from "./routes/authRoute.js";
 import categoryRoutes from "./routes/categoryRoutes.js";
 import productRoutes from "./routes/productRoute.js";
 // ⚠️ MUKKIYAM: Unga file name 'paymentRoute.js' illana 'paymentRoutes.js' nu check panni adhe inga kudunga
-import paymentRoutes from "./routes/paymentRoutes.js"; 
+import paymentRoutes from "./routes/paymentRoute.js"; 
 
 // Database Connection
 connectDB();
